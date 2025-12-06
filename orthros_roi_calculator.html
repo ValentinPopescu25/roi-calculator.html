@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R&D Lead Gen ROI Calculator - Orthros Media</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #ffffff;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #FF6B35;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.5);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.5);
+        }
+
+        .value-display {
+            display: inline-block;
+            float: right;
+            color: #FF6B35;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .calculated-field {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 16px;
+            font-weight: 700;
+            color: #4ECDC4;
+        }
+
+        .results {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        .results-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .result-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .result-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .result-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .roi-highlight {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .roi-highlight-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .roi-highlight-value {
+            font-size: 48px;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">ORTHROS MEDIA</div>
+            <h1>R&D Lead Gen ROI Calculator</h1>
+            <p class="subtitle">See the return on investment for qualified R&D tax credit calls</p>
+        </div>
+
+        <div class="calculator-grid">
+            <div class="section">
+                <h2 class="section-title">Campaign Settings</h2>
+                
+                <div class="input-group">
+                    <label>
+                        Cost Per Qualified Call
+                        <span class="value-display">$<span id="costDisplay">1,000</span></span>
+                    </label>
+                    <input type="range" id="costPerCall" min="100" max="1000" step="50" value="1000">
+                </div>
+
+                <div class="input-group">
+                    <label>
+                        Qualified Calls Per Month
+                        <span class="value-display"><span id="callsDisplay">10</span></span>
+                    </label>
+                    <input type="range" id="callsPerMonth" min="5" max="30" step="1" value="10">
+                </div>
+
+                <div class="input-group">
+                    <label>Monthly Investment</label>
+                    <div class="calculated-field" id="monthlyInvestment">$10,000</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Sales & Pricing</h2>
+                
+                <div class="input-group">
+                    <label>
+                        Average Deal Size
+                        <span class="value-display">$<span id="dealDisplay">60,000</span></span>
+                    </label>
+                    <input type="range" id="avgDealSize" min="5000" max="100000" step="5000" value="60000">
+                </div>
+
+                <div class="input-group">
+                    <label>
+                        Close Rate %
+                        <span class="value-display"><span id="closeDisplay">30</span>%</span>
+                    </label>
+                    <input type="range" id="closeRate" min="10" max="60" step="5" value="30">
+                </div>
+
+                <div class="input-group">
+                    <label>Deals Closed Per Month</label>
+                    <div class="calculated-field" id="dealsClosed">3.0</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Monthly Revenue Generated</label>
+                    <div class="calculated-field" id="revenueGenerated">$180,000</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results">
+            <div class="results-title">Your Return on Investment</div>
+            
+            <div class="results-grid">
+                <div class="result-item">
+                    <div class="result-label">Investment</div>
+                    <div class="result-value" id="resultInvestment">$10,000</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label">Revenue</div>
+                    <div class="result-value" id="resultRevenue">$180,000</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label">Net Profit</div>
+                    <div class="result-value" id="resultProfit">$170,000</div>
+                </div>
+            </div>
+
+            <div class="roi-highlight">
+                <div class="roi-highlight-label">Monthly ROI Multiple</div>
+                <div class="roi-highlight-value" id="roiMultiple">18:1</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Orthros Media</strong> | Qualified R&D Tax Credit Lead Generation</p>
+            <p style="margin-top: 10px;">
+                <a href="mailto:valentin@orthrosmedia.com">valentin@orthrosmedia.com</a> | 
+                <a href="https://calendly.com/valentinpopescu255/new-meeting" target="_blank">Book a Call</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function formatCurrency(num) {
+            return '$' + num.toLocaleString('en-US', {maximumFractionDigits: 0});
+        }
+
+        function formatNumber(num, decimals) {
+            if (decimals === undefined) decimals = 1;
+            return num.toLocaleString('en-US', {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            });
+        }
+
+        function calculate() {
+            var costPerCall = parseFloat(document.getElementById('costPerCall').value);
+            var callsPerMonth = parseFloat(document.getElementById('callsPerMonth').value);
+            var avgDealSize = parseFloat(document.getElementById('avgDealSize').value);
+            var closeRate = parseFloat(document.getElementById('closeRate').value) / 100;
+
+            document.getElementById('costDisplay').textContent = costPerCall.toLocaleString();
+            document.getElementById('callsDisplay').textContent = callsPerMonth;
+            document.getElementById('dealDisplay').textContent = avgDealSize.toLocaleString();
+            document.getElementById('closeDisplay').textContent = (closeRate * 100).toFixed(0);
+
+            var monthlyInvestment = costPerCall * callsPerMonth;
+            var dealsClosed = callsPerMonth * closeRate;
+            var revenueGenerated = dealsClosed * avgDealSize;
+            var netProfit = revenueGenerated - monthlyInvestment;
+            var roiMultiple = revenueGenerated / monthlyInvestment;
+
+            document.getElementById('monthlyInvestment').textContent = formatCurrency(monthlyInvestment);
+            document.getElementById('dealsClosed').textContent = formatNumber(dealsClosed, 1);
+            document.getElementById('revenueGenerated').textContent = formatCurrency(revenueGenerated);
+
+            document.getElementById('resultInvestment').textContent = formatCurrency(monthlyInvestment);
+            document.getElementById('resultRevenue').textContent = formatCurrency(revenueGenerated);
+            document.getElementById('resultProfit').textContent = formatCurrency(netProfit);
+            document.getElementById('roiMultiple').textContent = roiMultiple.toFixed(1) + ':1';
+        }
+
+        document.getElementById('costPerCall').addEventListener('input', calculate);
+        document.getElementById('callsPerMonth').addEventListener('input', calculate);
+        document.getElementById('avgDealSize').addEventListener('input', calculate);
+        document.getElementById('closeRate').addEventListener('input', calculate);
+
+        calculate();
+    </script>
+</body>
+</html>
