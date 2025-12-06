@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R&D Lead Gen ROI Calculator - Orthros Media</title>
+    <title>Lead Gen ROI Calculator - Orthros Media</title>
     <style>
         * {
             margin: 0;
@@ -47,13 +47,7 @@
 
         h1 {
             font-size: 32px;
-            margin-bottom: 10px;
             color: #ffffff;
-        }
-
-        .subtitle {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.7);
         }
 
         .calculator-grid {
@@ -74,6 +68,8 @@
             padding: 25px;
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
         }
 
         .section-title {
@@ -85,12 +81,16 @@
             letter-spacing: 1px;
         }
 
-        .input-group {
-            margin-bottom: 20px;
+        .section-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
         }
 
-        .input-group:last-child {
-            margin-bottom: 0;
+        .input-group {
+            display: flex;
+            flex-direction: column;
         }
 
         label {
@@ -245,63 +245,64 @@
     <div class="container">
         <div class="header">
             <div class="logo">ORTHROS MEDIA</div>
-            <h1>R&D Lead Gen ROI Calculator</h1>
-            <p class="subtitle">See the return on investment for qualified R&D tax credit calls</p>
+            <h1>Lead Gen ROI Calculator</h1>
         </div>
 
         <div class="calculator-grid">
             <div class="section">
                 <h2 class="section-title">Campaign Settings</h2>
-                
-                <div class="input-group">
-                    <label>
-                        Cost Per Qualified Call
-                        <span class="value-display">$<span id="costDisplay">1,000</span></span>
-                    </label>
-                    <input type="range" id="costPerCall" min="100" max="1000" step="50" value="1000">
-                </div>
+                <div class="section-content">
+                    <div class="input-group">
+                        <label>
+                            Cost Per Qualified Call
+                            <span class="value-display">$<span id="costDisplay">1,000</span></span>
+                        </label>
+                        <input type="range" id="costPerCall" min="100" max="1000" step="5" value="1000">
+                    </div>
 
-                <div class="input-group">
-                    <label>
-                        Qualified Calls Per Month
-                        <span class="value-display"><span id="callsDisplay">10</span></span>
-                    </label>
-                    <input type="range" id="callsPerMonth" min="5" max="30" step="1" value="10">
-                </div>
+                    <div class="input-group">
+                        <label>
+                            Qualified Calls Per Month
+                            <span class="value-display"><span id="callsDisplay">10</span></span>
+                        </label>
+                        <input type="range" id="callsPerMonth" min="5" max="30" step="1" value="10">
+                    </div>
 
-                <div class="input-group">
-                    <label>Monthly Investment</label>
-                    <div class="calculated-field" id="monthlyInvestment">$10,000</div>
+                    <div class="input-group">
+                        <label>Monthly Investment</label>
+                        <div class="calculated-field" id="monthlyInvestment">$10,000</div>
+                    </div>
                 </div>
             </div>
 
             <div class="section">
                 <h2 class="section-title">Sales & Pricing</h2>
-                
-                <div class="input-group">
-                    <label>
-                        Average Deal Size
-                        <span class="value-display">$<span id="dealDisplay">60,000</span></span>
-                    </label>
-                    <input type="range" id="avgDealSize" min="5000" max="100000" step="5000" value="60000">
-                </div>
+                <div class="section-content">
+                    <div class="input-group">
+                        <label>
+                            Average Deal Size
+                            <span class="value-display">$<span id="dealDisplay">60,000</span></span>
+                        </label>
+                        <input type="range" id="avgDealSize" min="5000" max="100000" step="1000" value="60000">
+                    </div>
 
-                <div class="input-group">
-                    <label>
-                        Close Rate %
-                        <span class="value-display"><span id="closeDisplay">30</span>%</span>
-                    </label>
-                    <input type="range" id="closeRate" min="10" max="60" step="5" value="30">
-                </div>
+                    <div class="input-group">
+                        <label>
+                            Close Rate %
+                            <span class="value-display"><span id="closeDisplay">30</span>%</span>
+                        </label>
+                        <input type="range" id="closeRate" min="10" max="60" step="5" value="30">
+                    </div>
 
-                <div class="input-group">
-                    <label>Deals Closed Per Month</label>
-                    <div class="calculated-field" id="dealsClosed">3.0</div>
-                </div>
+                    <div class="input-group">
+                        <label>Deals Closed Per Month</label>
+                        <div class="calculated-field" id="dealsClosed">3.0</div>
+                    </div>
 
-                <div class="input-group">
-                    <label>Monthly Revenue Generated</label>
-                    <div class="calculated-field" id="revenueGenerated">$180,000</div>
+                    <div class="input-group">
+                        <label>Monthly Revenue Generated</label>
+                        <div class="calculated-field" id="revenueGenerated">$180,000</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -333,7 +334,7 @@
         </div>
 
         <div class="footer">
-            <p><strong>Orthros Media</strong> | Qualified R&D Tax Credit Lead Generation</p>
+            <p><strong>Orthros Media</strong> | Qualified Lead Generation</p>
             <p style="margin-top: 10px;">
                 <a href="mailto:valentin@orthrosmedia.com">valentin@orthrosmedia.com</a> | 
                 <a href="https://calendly.com/valentinpopescu255/new-meeting" target="_blank">Book a Call</a>
